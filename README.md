@@ -1,2 +1,2 @@
 # csr_fw
-CSR firmwares
+CSR firmware modules
