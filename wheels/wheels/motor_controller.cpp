@@ -1,5 +1,5 @@
 #include "motor_controller.h"
-#import <Arduino.h>
+#include <Arduino.h>
 
 void MotorController::setup(int pin1, int pin2, int pin3, int pin4)
 {
