@@ -99,8 +99,8 @@ void setup()
     move_pattern[pix] = 100 * min(pix, LED_COUNT - pix) / LED_COUNT;
   }
 
-  pinMode(A4, INPUT_PULLUP);
-  pinMode(A5, INPUT_PULLUP);
+  //pinMode(A4, INPUT_PULLUP);
+  //pinMode(A5, INPUT_PULLUP);
   Wire.begin(i2c_addr_led_control);
   Wire.onReceive(i2c_handle); // register event
 }

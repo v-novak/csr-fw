@@ -23,9 +23,12 @@
 
 MotorController motor_right, motor_left;
 int speed_left, speed_right;
+unsigned long latest_command;
+const unsigned long CMD_TIMEOUT = 500;
 
 void i2c_handle(int bytes_available)
 {
+  latest_command = millis();
   Serial.println("recv ");
   //Serial.println(bytes_available);
 
@@ -70,16 +73,21 @@ void setup()
   Serial.begin(115200);
   motor_right.setup(3, 2, 4, 5);
   motor_left.setup(9, 7, 8, 10);
-  pinMode(A4, INPUT_PULLUP);
-  pinMode(A5, INPUT_PULLUP);
+  //pinMode(A4, INPUT_PULLUP);
+  //pinMode(A5, INPUT_PULLUP);
   Wire.begin(i2c_addr_motor_board);
   Wire.onReceive(i2c_handle); // register event
+  
+  latest_command = millis();
 }
 
 void loop()
 {
   while (1) {
-
+    if (millis() - latest_command > CMD_TIMEOUT) {
+      speed_left = speed_right = 0; 
+    }
+    
     Serial.print("Speed: ");
     Serial.print(speed_left);
     Serial.print(", ");
